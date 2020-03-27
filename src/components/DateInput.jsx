@@ -93,6 +93,7 @@ class DateInput extends React.PureComponent {
     this.onChange = this.onChange.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
     this.setInputRef = this.setInputRef.bind(this);
+    this.onBlur = this.onBlur.bind(this);
     this.throttledKeyDown = throttle(this.onFinalKeyDown, 300, { trailing: false });
   }
 
@@ -166,6 +167,12 @@ class DateInput extends React.PureComponent {
     this.inputRef = ref;
   }
 
+  onBlur() {
+    this.setState({
+      dateString: '',
+    })
+  };
+
   render() {
     const {
       dateString,
@@ -235,6 +242,7 @@ class DateInput extends React.PureComponent {
           readOnly={typeof readOnly === 'boolean' ? readOnly : isTouch}
           required={required}
           aria-describedby={screenReaderMessage && screenReaderMessageId}
+          onBlur={this.onBlur}
         />
 
         {withFang && (
